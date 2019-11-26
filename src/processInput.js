@@ -1,14 +1,5 @@
 const save = require("./save").save;
-
-// const processInput = function(cmndLineArgs, date) {
-//   const organisedArgs = operationAndDetailSeperator(cmndLineArgs);
-//   const optionsFunctions = { "--save": saveAcknowledge };
-//   const outputString = optionsFunctions[organisedArgs[0]](
-//     organisedArgs[1],
-//     date
-//   );
-//   return outputSting;
-// };
+const query = require('./query').query;
 
 const getObjectFromArray = function(array) {
   const length = array.length;
@@ -41,7 +32,7 @@ const getSlicedInput = function(array, length) {
 };
 
 const getConvertedInput = function(userArgs, date) {
-  const avilableOperations = { "--save": save };
+  const avilableOperations = { "--save": save , "--query": query};
   let convertedInputs = [];
   convertedInputs[0] = avilableOperations[userArgs[0]];
   convertedInputs[1] = getObjectFromArray(userArgs.slice(1));

@@ -115,7 +115,7 @@ describe("saveMessageFormatter", function() {
 
 describe("save", function() {
   it("should return an save formatted message corresponding to the transaction details", function() {
-    assert.strictEqual(
+    strictEqual(
       save(
         {
           "--empId": "1211",
@@ -123,7 +123,7 @@ describe("save", function() {
           "--qty": 2,
           "--date": "2019-11-26T03:12:47.472Z"
         },
-        "./tmp.json"
+        "./tmpSave.json"
       ),
       "taransaction compleated\nEmployee ID,Beverage,Quantity,Date\n1211,orange,2,2019-11-26T03:12:47.472Z"
     );

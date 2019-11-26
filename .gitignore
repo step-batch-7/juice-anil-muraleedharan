@@ -1,4 +1,4 @@
 node_modules/
 .nyc_output
-src/query.js
-test/queryTest.js
+./test/processDataTest.js
+./src/processData.js

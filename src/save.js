@@ -1,4 +1,4 @@
-const fileAccess = require("../src/fileAccessing");
+const fileAccess = require("./fileAccesUtils");
 let { readFile, writeFile } = fileAccess;
 
 const isPresent = function(object, key) {
