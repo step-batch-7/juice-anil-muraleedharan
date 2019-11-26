@@ -41,8 +41,20 @@ const getConvertedInput = function(userArgs, date) {
   return convertedInputs;
 };
 
+const processInputs = function(slicedInputs,date,databasePath,validityFlag) {
+  if(!validityFlag) {
+    return "please enter valid inputs";
+  }
+  const convertedInputs = getConvertedInput(slicedInputs, date);
+  const operation = convertedInputs[0];
+  const datasToProcess = convertedInputs[1];
+  const message = operation(datasToProcess, databasePath);
+  return message;
+};
+
 exports.getConvertedInput = getConvertedInput;
 exports.getSlicedInput = getSlicedInput;
 exports.operationAndDetailSeperator = operationAndDetailSeperator;
 exports.getNumeric = getNumeric;
 exports.getObjectFromArray = getObjectFromArray;
+exports.processInputs = processInputs;

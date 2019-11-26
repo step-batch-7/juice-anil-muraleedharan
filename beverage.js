@@ -1,15 +1,15 @@
 const processInput = require("./src/processInput");
-let { getSlicedInput, getConvertedInput } = processInput;
+let { getSlicedInput, processInputs } = processInput;
 const save = require("./src/save").save;
+const isInputsValid = require('./src/inputValidation').isInputsValid;
 
 const main = function(userArgs) {
   const slicedInputs = getSlicedInput(userArgs, 2);
+  const validityFlag = isInputsValid(slicedInputs);
   const date = new Date();
-  const convertedInputs = getConvertedInput(slicedInputs, date);
-  const operation = convertedInputs[0];
-  const datasToProcess = convertedInputs[1];
-  const result = operation(datasToProcess, "./database.json");
-  console.log(result);
+  const databasePath = "./database.json"
+  const message = processInputs(slicedInputs,date,databasePath,validityFlag)
+  console.log(message);
 };
 
 main(process.argv);
