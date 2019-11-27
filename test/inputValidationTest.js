@@ -1,5 +1,6 @@
-const isInputsValid = require("../src/inputValidation").isInputsValid;
-const assert = require("assert");
+const isInputsValid = require('../src/inputValidation').isInputsValid;
+const chai = require('chai');
+const assert = chai.assert;
 
 describe("isInputsValid", function() {
   it("should return true if all the input options are valid for save", function() {

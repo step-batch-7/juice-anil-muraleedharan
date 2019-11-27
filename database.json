@@ -46,6 +46,17 @@
     },
     {
       "--empId": "1234",
+      "--qty": 2,
+      "--beverage": "apple",
+      "--date": "2019-11-27T16:43:11.102Z"
+    },
+    {
+      "--empId": "1234",
+      "--beverage": "orange",
+      "--qty": 1
+    },
+    {
+      "--empId": "1234",
       "--beverage": "orange",
       "--qty": 1
     }

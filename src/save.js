@@ -1,7 +1,5 @@
 const utilities = require("./generalUtils");
-const fs = require("fs");
 
-let { readFileSync, writeFileSync } = fs;
 let { isPresent } = utilities;
 
 const combineDataToSave = function(previousDatabase, newData) {
@@ -30,10 +28,10 @@ const saveMessageFormatter = function(transactionDetails) {
 };
 
 const save = function(transactionDetails, path, readFile, writeFile) {
-  let database = JSON.parse(readFile(path, readFileSync));
+  let database = JSON.parse(readFile(path, readFile));
   const combinedData = combineDataToSave(database, transactionDetails);
   const dataToSave = JSON.stringify(combinedData, null, 2);
-  writeFile(path, dataToSave, writeFileSync);
+  writeFile(path, dataToSave, writeFile);
   return transactionDetails;
 };
 

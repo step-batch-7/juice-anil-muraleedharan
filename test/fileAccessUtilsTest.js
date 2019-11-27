@@ -1,8 +1,8 @@
 const fileAccessFuncs = require("../src/fileAccesUtils");
-const assert = require('assert');
+const chai = require("chai");
+const assert = chai.assert;
 
 let { readFile, writeFile } = fileAccessFuncs;
-let {strictEqual} = assert
 
 describe("readFile", function() {
   const readFunc = function(path) {
@@ -10,15 +10,14 @@ describe("readFile", function() {
   };
 
   it("should read the contents of the file in the given path", function() {
-    strictEqual(readFile("path", readFunc), "");
+    assert.strictEqual(readFile("path", readFunc), "");
   });
 });
 
-describe("writeFile", function(){
-  const writeFunc = function(path,contents) {
-  };
+describe("writeFile", function() {
+  const writeFunc = function(path, contents) {};
 
-  it("should write to the file in the given path", function(){
-    strictEqual(writeFile("paath","contents",writeFunc),);
+  it("should write to the file in the given path", function() {
+    assert.strictEqual(writeFile("paath", "contents", writeFunc));
   });
 });

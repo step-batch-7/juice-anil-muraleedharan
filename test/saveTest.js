@@ -1,17 +1,16 @@
-const assert = require("assert");
+const chai = require("chai");
+const assert = chai.assert;
 const saveFunctions = require("../src/save");
+
 let {
   save,
   saveMessageFormatter,
   combineDataToSave,
 } = saveFunctions;
-let { deepStrictEqual, strictEqual } = assert;
-
-
 
 describe("combineDataToSave", function() {
   it("should return an latest object if the empId already exists", function() {
-    deepStrictEqual(
+    assert.deepStrictEqual(
       combineDataToSave(
         {
           "1111": [
@@ -49,7 +48,7 @@ describe("combineDataToSave", function() {
     );
   });
   it("should return an latest object by inserting a new element with empId as key", function() {
-    deepStrictEqual(
+    assert.deepStrictEqual(
       combineDataToSave(
         {
           "1111": [
@@ -92,7 +91,7 @@ describe("combineDataToSave", function() {
 
 describe("saveMessageFormatter", function() {
   it("should return an message by combining text and current transaction details", function() {
-    strictEqual(
+    assert.strictEqual(
       saveMessageFormatter({
         "--empId": "1211",
         "--beverage": "orange",
@@ -112,7 +111,7 @@ describe("save", function() {
   const writeFunc = function(path) {};
 
   it("should return the transaction details", function() {
-    deepStrictEqual(
+    assert.deepStrictEqual(
       save(
         {
           "--empId": "1211",

@@ -1,10 +1,10 @@
 const saveFuncs = require("./save");
 const queryFuncs = require("./query");
-const fileAccessFunc = require("./fileAccesUtils");
+
 
 let { save, saveMessageFormatter } = saveFuncs;
 let { query, queryMessageFormatter } = queryFuncs;
-let { readFile, writeFile } = fileAccessFunc;
+
 
 const getObjectFromArray = function(array) {
   const length = array.length;
@@ -46,7 +46,7 @@ const getConvertedInput = function(userArgs, date) {
   return convertedInputs;
 };
 
-const processInputs = function(slicedInputs, date, databasePath, validityFlag) {
+const processInputs = function(slicedInputs, date, databasePath, validityFlag,readFile,writeFile) {
   if (!validityFlag) {
     return "please enter valid inputs";
   }

@@ -1,9 +1,9 @@
-const assert = require("assert");
+const chai = require("chai");
+const assert = chai.assert;
 const processInput = require("../src/processInput");
 const savefunc = require("../src/save");
-let { save } = savefunc;
 
-let { deepStrictEqual, strictEqual } = assert;
+let { save } = savefunc;
 let {
   getObjectFromArray,
   getNumeric,
@@ -12,16 +12,17 @@ let {
   getConvertedInput,
   processInputs
 } = processInput;
+
 describe("getObjectFromArray", function() {
   it("it should return an object by taking alternative elements as keys and value", function() {
-    deepStrictEqual(getObjectFromArray(["a", "A", "b", "B", "c", "C"]), {
+    assert.deepStrictEqual(getObjectFromArray(["a", "A", "b", "B", "c", "C"]), {
       a: "A",
       b: "B",
       c: "C"
     });
   });
   it("it should return an empty object if the given array is empty", function() {
-    deepStrictEqual(getObjectFromArray([]), {});
+    assert.deepStrictEqual(getObjectFromArray([]), {});
   });
 });
 
@@ -33,7 +34,7 @@ describe("getNumeric", function() {
 
 describe("operationAndDetailSeperator", function() {
   it("should return an array which contains operation followed by a list of transaction details", function() {
-    deepStrictEqual(
+    assert.deepStrictEqual(
       operationAndDetailSeperator([
         "node",
         "filename",
@@ -52,7 +53,7 @@ describe("operationAndDetailSeperator", function() {
 
 describe("getSlicedInput", function() {
   it("should return an array by cutting out the first to elements", function() {
-    deepStrictEqual(
+    assert.deepStrictEqual(
       getSlicedInput(
         [
           "node",
@@ -75,7 +76,7 @@ describe("getSlicedInput", function() {
 describe("getConvertedInput", function() {
   it("should return an array by converting the operation to corresponding func references and qty to numeric", function() {
     date = new Date().toJSON();
-    deepStrictEqual(
+    assert.deepStrictEqual(
       getConvertedInput(
         ["--save", "--empId", "1111", "--beverage", "orange", "--qty", "2"],
         date
@@ -94,9 +95,15 @@ describe("getConvertedInput", function() {
 });
 
 describe("processInputs", function() {
+  const readFunc = function(path) {
+    return "{}";
+  };
+
+  const writeFunc = function(path) {};
+
   it("should return valid expected message if validity flag is true", function() {
     let date = new Date().toJSON;
-    let path = "./database.json";
+    let path = "path";
     let expected =
       "taransaction compleated\nEmployee ID,Beverage,Quantity,Date\n1234,orange,1," +
       date;
@@ -105,7 +112,9 @@ describe("processInputs", function() {
         ["--save", "--empId", "1234", "--beverage", "orange", "--qty", "1"],
         date,
         path,
-        true
+        true,
+        readFunc,
+        writeFunc
       ),
       expected
     );
