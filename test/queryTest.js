@@ -170,23 +170,18 @@ describe("querryMessageFormatter", function() {
 });
 
 describe("query", function() {
+  const readFunc = function(path) {
+    return '{"1211": [{"--empId": "1211","--beverage": "orange","--qty": 2,"--date": "2019-11-26T03:12:47.472Z"}]}';
+  };
+
   it("should find all the transactions by the employee and return", function() {
-    deepStrictEqual(
-      query({ "--empId": "1211" }, "./tmpQuery.json"),
-      [
-            {
-              "--beverage": "orange",
-              "--date": "2019-11-26T03:12:47.472Z",
-              "--empId": "1211",
-              "--qty": 2
-            },
-            {
-              "--beverage": "apple",
-              "--date": "2019-11-26T03:12:47.472Z",
-              "--empId": "1211",
-              "--qty": 2
-            }
-          ]
-    );
+    deepStrictEqual(query({ "--empId": "1211" }, "path", readFunc), [
+      {
+        "--beverage": "orange",
+        "--date": "2019-11-26T03:12:47.472Z",
+        "--empId": "1211",
+        "--qty": 2
+      }
+    ]);
   });
 });

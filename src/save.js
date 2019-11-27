@@ -1,9 +1,8 @@
-const fileAccess = require("./fileAccesUtils");
-let { readFile, writeFile } = fileAccess;
+const utilities = require("./generalUtils");
+const fs = require("fs");
 
-const isPresent = function(object, key) {
-  return Object.keys(object).includes(key);
-};
+let { readFileSync, writeFileSync } = fs;
+let { isPresent } = utilities;
 
 const combineDataToSave = function(previousDatabase, newData) {
   let empId = newData["--empId"];
@@ -30,15 +29,14 @@ const saveMessageFormatter = function(transactionDetails) {
   return formattedMessage;
 };
 
-const save = function(transactionDetails, path) {
-  let database = JSON.parse(readFile(path));
+const save = function(transactionDetails, path, readFile, writeFile) {
+  let database = JSON.parse(readFile(path, readFileSync));
   const combinedData = combineDataToSave(database, transactionDetails);
   const dataToSave = JSON.stringify(combinedData, null, 2);
-  writeFile(path, dataToSave);
+  writeFile(path, dataToSave, writeFileSync);
   return transactionDetails;
 };
 
-exports.isPresent = isPresent;
 exports.save = save;
 exports.combineDataToSave = combineDataToSave;
 exports.saveMessageFormatter = saveMessageFormatter;

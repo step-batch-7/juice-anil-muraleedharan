@@ -4,19 +4,10 @@ let {
   save,
   saveMessageFormatter,
   combineDataToSave,
-  isPresent
 } = saveFunctions;
 let { deepStrictEqual, strictEqual } = assert;
 
-describe("isPresent", function() {
-  it("should return true if the key is already present", function() {
-    strictEqual(isPresent({ a: "A" }, "a"), true);
-  });
 
-  it("should return false if the key is not present", function() {
-    strictEqual(isPresent({ a: "A" }, "b"), false);
-  });
-});
 
 describe("combineDataToSave", function() {
   it("should return an latest object if the empId already exists", function() {
@@ -114,6 +105,12 @@ describe("saveMessageFormatter", function() {
 });
 
 describe("save", function() {
+  const readFunc = function(path) {
+    return "{}";
+  };
+
+  const writeFunc = function(path) {};
+
   it("should return the transaction details", function() {
     deepStrictEqual(
       save(
@@ -123,7 +120,9 @@ describe("save", function() {
           "--qty": 2,
           "--date": "2019-11-26T03:12:47.472Z"
         },
-        "./tmpSave.json"
+        "path",
+        readFunc,
+        writeFunc
       ),
       {
         "--beverage": "orange",

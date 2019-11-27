@@ -1,3 +1,7 @@
+const isPresent = function(object, key) {
+  return Object.keys(object).includes(key);
+};
+
 const isEqual = function(value1, value2) {
   return value1 === value2;
 };
@@ -18,8 +22,10 @@ const isNumeric = function(value) {
   return Number.isInteger(Number(value));
 };
 
+
 exports.isIncludes = isIncludes;
 exports.isEqual = isEqual;
 exports.getNumeric = getNumeric;
 exports.isPositiveNumeric = isPositiveNumeric;
 exports.isNumeric = isNumeric;
+exports.isPresent = isPresent;

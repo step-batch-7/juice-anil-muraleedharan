@@ -5,7 +5,8 @@ let {
   isEqual,
   isNumeric,
   getNumeric,
-  isPositiveNumeric
+  isPositiveNumeric,
+  isPresent
 } = generalUtils;
 let { strictEqual } = assert;
 
@@ -68,5 +69,15 @@ describe("isNumeric", function() {
 
   it("should return false if the given value is not a string of numeric", function() {
     strictEqual(isNumeric("abc"), false);
+  });
+});
+
+describe("isPresent", function() {
+  it("should return true if the key is already present", function() {
+    strictEqual(isPresent({ a: "A" }, "a"), true);
+  });
+
+  it("should return false if the key is not present", function() {
+    strictEqual(isPresent({ a: "A" }, "b"), false);
   });
 });

@@ -1,6 +1,6 @@
-const readFile = require("./fileAccesUtils").readFile;
 const parse = require("./jsonUtils").parse;
 const isIncludes = require("./generalUtils").isIncludes;
+const readFileSync = require("fs").readFileSync;
 
 const getEmployeeTransactions = function(database, empId) {
   const empIds = Object.keys(database);
@@ -34,8 +34,8 @@ const queryMessageFormatter = function(transationsHistory) {
   return formattedMessage;
 };
 
-const query = function(details, path) {
-  const datas = readFile(path);
+const query = function(details, path, readFile) {
+  const datas = readFile(path, readFileSync);
   const database = parse(datas);
   const currentEmpId = details["--empId"];
   const transactionHistory = getEmployeeTransactions(database, currentEmpId);

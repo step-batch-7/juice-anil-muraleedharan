@@ -1,13 +1,13 @@
 const fs = require("fs");
-let { readFileSync, writeFileSync,existsSync } = fs;
+let { readFileSync, writeFileSync } = fs;
 
-const readFile = function(path) {
-  let contents = readFileSync(path, "utf8");
+const readFile = function(path, readFunc) {
+  let contents = readFunc(path, "utf8");
   return contents;
 };
 
-const writeFile = function(path, contents) {
-  writeFileSync(path, contents, "utf8");
+const writeFile = function(path, contents, writeFunc) {
+  writeFunc(path, contents, "utf8");
 };
 
 exports.readFile = readFile;

@@ -1,8 +1,10 @@
 const saveFuncs = require("./save");
 const queryFuncs = require("./query");
+const fileAccessFunc = require("./fileAccesUtils");
 
 let { save, saveMessageFormatter } = saveFuncs;
 let { query, queryMessageFormatter } = queryFuncs;
+let { readFile, writeFile } = fileAccessFunc;
 
 const getObjectFromArray = function(array) {
   const length = array.length;
@@ -40,7 +42,7 @@ const getConvertedInput = function(userArgs, date) {
   convertedInputs[0] = avilableOperations[userArgs[0]];
   convertedInputs[1] = getObjectFromArray(userArgs.slice(1));
   convertedInputs[1]["--qty"] = getNumeric(convertedInputs[1]["--qty"]);
-  convertedInputs[1]["--date"] = date.toJSON();
+  convertedInputs[1]["--date"] = date;
   return convertedInputs;
 };
 
@@ -55,7 +57,7 @@ const processInputs = function(slicedInputs, date, databasePath, validityFlag) {
   const convertedInputs = getConvertedInput(slicedInputs, date);
   const operation = convertedInputs[0];
   const datasToProcess = convertedInputs[1];
-  const result = operation(datasToProcess, databasePath);
+  const result = operation(datasToProcess, databasePath, readFile, writeFile);
   const messageFormatterFunc = messageFormatterOptions[slicedInputs[0]];
   const message = messageFormatterFunc(result);
   return message;

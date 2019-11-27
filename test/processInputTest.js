@@ -74,8 +74,7 @@ describe("getSlicedInput", function() {
 
 describe("getConvertedInput", function() {
   it("should return an array by converting the operation to corresponding func references and qty to numeric", function() {
-    date = new Date();
-    convertedDate = date.toJSON();
+    date = new Date().toJSON();
     deepStrictEqual(
       getConvertedInput(
         ["--save", "--empId", "1111", "--beverage", "orange", "--qty", "2"],
@@ -87,7 +86,7 @@ describe("getConvertedInput", function() {
           "--empId": "1111",
           "--beverage": "orange",
           "--qty": 2,
-          "--date": convertedDate
+          "--date": date
         }
       ]
     );
@@ -96,22 +95,26 @@ describe("getConvertedInput", function() {
 
 describe("processInputs", function() {
   it("should return valid expected message if validity flag is true", function() {
-    let date = new Date();
-    let path = "./tmpSave.json";
-    let expected = "taransaction compleated\nEmployee ID,Beverage,Quantity,Date\n1234,orange,1," +
-    date.toJSON();
+    let date = new Date().toJSON;
+    let path = "./database.json";
+    let expected =
+      "taransaction compleated\nEmployee ID,Beverage,Quantity,Date\n1234,orange,1," +
+      date;
     assert.strictEqual(
       processInputs(
         ["--save", "--empId", "1234", "--beverage", "orange", "--qty", "1"],
         date,
         path,
         true
-      ),expected
-      
+      ),
+      expected
     );
   });
-  
-  	it("should return error message if the validitly flag is false", function(){
-      assert.strictEqual(processInputs(["--query", "--empId", "1234"],false),"please enter valid inputs");
-    });
+
+  it("should return error message if the validitly flag is false", function() {
+    assert.strictEqual(
+      processInputs(["--query", "--empId", "1234"], false),
+      "please enter valid inputs"
+    );
+  });
 });
