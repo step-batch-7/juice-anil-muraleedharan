@@ -6,10 +6,20 @@ const isIncludes = function(array, value) {
   return array.includes(value);
 };
 
+const getNumeric = function(value) {
+  return Number(value);
+};
+
+const isPositiveNumeric = function(value) {
+  return getNumeric(value) > 0;
+};
+
 const isNumeric = function(value) {
-  return Number.isInteger(+value);
+  return Number.isInteger(Number(value));
 };
 
 exports.isIncludes = isIncludes;
 exports.isEqual = isEqual;
+exports.getNumeric = getNumeric;
+exports.isPositiveNumeric = isPositiveNumeric;
 exports.isNumeric = isNumeric;

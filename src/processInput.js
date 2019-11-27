@@ -1,5 +1,8 @@
-const save = require("./save").save;
-const query = require('./query').query;
+const saveFuncs = require("./save");
+const queryFuncs = require("./query");
+
+let { save, saveMessageFormatter } = saveFuncs;
+let { query, queryMessageFormatter } = queryFuncs;
 
 const getObjectFromArray = function(array) {
   const length = array.length;
@@ -32,7 +35,7 @@ const getSlicedInput = function(array, length) {
 };
 
 const getConvertedInput = function(userArgs, date) {
-  const avilableOperations = { "--save": save , "--query": query};
+  const avilableOperations = { "--save": save, "--query": query };
   let convertedInputs = [];
   convertedInputs[0] = avilableOperations[userArgs[0]];
   convertedInputs[1] = getObjectFromArray(userArgs.slice(1));
@@ -41,14 +44,20 @@ const getConvertedInput = function(userArgs, date) {
   return convertedInputs;
 };
 
-const processInputs = function(slicedInputs,date,databasePath,validityFlag) {
-  if(!validityFlag) {
+const processInputs = function(slicedInputs, date, databasePath, validityFlag) {
+  if (!validityFlag) {
     return "please enter valid inputs";
   }
+  const messageFormatterOptions = {
+    "--save": saveMessageFormatter,
+    "--query": queryMessageFormatter
+  };
   const convertedInputs = getConvertedInput(slicedInputs, date);
   const operation = convertedInputs[0];
   const datasToProcess = convertedInputs[1];
-  const message = operation(datasToProcess, databasePath);
+  const result = operation(datasToProcess, databasePath);
+  const messageFormatterFunc = messageFormatterOptions[slicedInputs[0]];
+  const message = messageFormatterFunc(result);
   return message;
 };
 

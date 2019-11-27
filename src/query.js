@@ -39,8 +39,7 @@ const query = function(details, path) {
   const database = parse(datas);
   const currentEmpId = details["--empId"];
   const transactionHistory = getEmployeeTransactions(database, currentEmpId);
-  const message = queryMessageFormatter(transactionHistory);
-  return message;
+  return transactionHistory;
 };
 
 exports.query = query;

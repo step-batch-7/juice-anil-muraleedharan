@@ -35,8 +35,7 @@ const save = function(transactionDetails, path) {
   const combinedData = combineDataToSave(database, transactionDetails);
   const dataToSave = JSON.stringify(combinedData, null, 2);
   writeFile(path, dataToSave);
-  const message = saveMessageFormatter(transactionDetails);
-  return message;
+  return transactionDetails;
 };
 
 exports.isPresent = isPresent;

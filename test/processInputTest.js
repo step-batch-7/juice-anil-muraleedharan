@@ -1,7 +1,7 @@
 const assert = require("assert");
 const processInput = require("../src/processInput");
-const savefunc = require('../src/save');
-let {save} = savefunc;
+const savefunc = require("../src/save");
+let { save } = savefunc;
 
 let { deepStrictEqual, strictEqual } = assert;
 let {
@@ -9,7 +9,8 @@ let {
   getNumeric,
   operationAndDetailSeperator,
   getSlicedInput,
-  getConvertedInput
+  getConvertedInput,
+  processInputs
 } = processInput;
 describe("getObjectFromArray", function() {
   it("it should return an object by taking alternative elements as keys and value", function() {
@@ -77,7 +78,7 @@ describe("getConvertedInput", function() {
     convertedDate = date.toJSON();
     deepStrictEqual(
       getConvertedInput(
-        ["--save",  "--empId", "1111", "--beverage", "orange", "--qty", "2" ],
+        ["--save", "--empId", "1111", "--beverage", "orange", "--qty", "2"],
         date
       ),
       [
@@ -91,4 +92,26 @@ describe("getConvertedInput", function() {
       ]
     );
   });
+});
+
+describe("processInputs", function() {
+  it("should return valid expected message if validity flag is true", function() {
+    let date = new Date();
+    let path = "./tmpSave.json";
+    let expected = "taransaction compleated\nEmployee ID,Beverage,Quantity,Date\n1234,orange,1," +
+    date.toJSON();
+    assert.strictEqual(
+      processInputs(
+        ["--save", "--empId", "1234", "--beverage", "orange", "--qty", "1"],
+        date,
+        path,
+        true
+      ),expected
+      
+    );
+  });
+  
+  	it("should return error message if the validitly flag is false", function(){
+      assert.strictEqual(processInputs(["--query", "--empId", "1234"],false),"please enter valid inputs");
+    });
 });

@@ -170,10 +170,23 @@ describe("querryMessageFormatter", function() {
 });
 
 describe("query", function() {
-  it("should find all the transactions by the employee and return as a formatted string", function() {
-    strictEqual(
+  it("should find all the transactions by the employee and return", function() {
+    deepStrictEqual(
       query({ "--empId": "1211" }, "./tmpQuery.json"),
-      "Employee ID, Beverage, Quantity, Date\n1211,orange,2,2019-11-26T03:12:47.472Z\n1211,apple,2,2019-11-26T03:12:47.472Z\nTotal 4 juices"
+      [
+            {
+              "--beverage": "orange",
+              "--date": "2019-11-26T03:12:47.472Z",
+              "--empId": "1211",
+              "--qty": 2
+            },
+            {
+              "--beverage": "apple",
+              "--date": "2019-11-26T03:12:47.472Z",
+              "--empId": "1211",
+              "--qty": 2
+            }
+          ]
     );
   });
 });
