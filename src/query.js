@@ -2,13 +2,18 @@ const parse = require("./jsonUtils").parse;
 const isIncludes = require("./generalUtils").isIncludes;
 const readFileSync = require("fs").readFileSync;
 
-const getEmployeeTransactions = function(database, empId) {
-  const empIds = Object.keys(database);
-  const isAlreadyExist = isIncludes(empIds, empId);
-  if (isAlreadyExist) {
-    return database[empId];
-  }
-  return [];
+// const getEmployeeTransactions = function(database, empId) {
+//   const empIds = Object.keys(database);
+//   const isAlreadyExist = isIncludes(empIds, empId);
+//   if (isAlreadyExist) {
+//     return database[empId];
+//   }
+//   return [];
+// };
+
+const getEmployeeTransactions = function(empId, element) {
+  test = element["--empId"] === empId;
+  return test;
 };
 
 const addQuantity = function(previousSum, currentData) {
@@ -38,7 +43,10 @@ const query = function(details, path, readFile) {
   const datas = readFile(path, readFileSync);
   const database = parse(datas);
   const currentEmpId = details["--empId"];
-  const transactionHistory = getEmployeeTransactions(database, currentEmpId);
+  const transactionHistory = database.filter(
+    getEmployeeTransactions.bind(null, currentEmpId)
+  );
+  // const transactionHistory = getEmployeeTransactions(database, currentEmpId);
   return transactionHistory;
 };
 

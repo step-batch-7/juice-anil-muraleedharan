@@ -1,6 +1,3 @@
-const fs = require("fs");
-let { readFileSync, writeFileSync } = fs;
-
 const readFile = function(path, readFunc) {
   let contents = readFunc(path, "utf8");
   return contents;

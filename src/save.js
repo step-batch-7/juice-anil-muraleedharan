@@ -1,17 +1,19 @@
 const utilities = require("./generalUtils");
-
+const fs = require("fs");
+let {readFileSync,writeFileSync} = fs
 let { isPresent } = utilities;
 
 const combineDataToSave = function(previousDatabase, newData) {
-  let empId = newData["--empId"];
-  let isAlreadyExist = isPresent(previousDatabase, empId);
-  if (isAlreadyExist) {
-    previousDatabase[empId].push(newData);
-    return previousDatabase;
-  } else {
-    previousDatabase[empId] = [newData];
-    return previousDatabase;
-  }
+  // let empId = newData["--empId"];
+  // let isAlreadyExist = isPresent(previousDatabase, empId);
+  // if (isAlreadyExist) {
+  // previousDatabase[empId].push(newData);
+  previousDatabase.push(newData);
+  return previousDatabase;
+  // } else {
+  //   previousDatabase[empId] = [newData];
+  //   return previousDatabase;
+  // }
 };
 
 const saveMessageFormatter = function(transactionDetails) {
@@ -28,10 +30,10 @@ const saveMessageFormatter = function(transactionDetails) {
 };
 
 const save = function(transactionDetails, path, readFile, writeFile) {
-  let database = JSON.parse(readFile(path, readFile));
+  let database = JSON.parse(readFile(path, readFileSync));
   const combinedData = combineDataToSave(database, transactionDetails);
   const dataToSave = JSON.stringify(combinedData, null, 2);
-  writeFile(path, dataToSave, writeFile);
+  writeFile(path, dataToSave, writeFileSync);
   return transactionDetails;
 };
 

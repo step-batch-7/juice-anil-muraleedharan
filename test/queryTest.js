@@ -25,97 +25,26 @@ describe("addQuantity", function() {
 });
 
 describe("getEmployeeTransactions", function() {
-  it("should return all the transactions done by that employee", function() {
+  it("should return false if the the given empId and the empId field of the object does not matches", function() {
     assert.deepStrictEqual(
-      getEmployeeTransactions(
-        {
-          "1234": [
-            {
-              "--empId": "1234",
-              "--beverage": "orange",
-              "--qty": 2,
-              "--date": "2019-11-26T05:17:54.298Z"
-            },
-            {
-              "--empId": "1234",
-              "--beverage": "apple",
-              "--qty": 1,
-              "--date": "2019-11-26T08:58:31.280Z"
-            }
-          ],
-          "1111": [
-            {
-              "--empId": "1234",
-              "--beverage": "orange",
-              "--qty": 2,
-              "--date": "2019-11-26T08:58:32.247Z"
-            }
-          ],
-          "2222": [
-            {
-              "--empId": "1234",
-              "--beverage": "orange",
-              "--qty": 2,
-              "--date": "2019-11-26T08:58:33.115Z"
-            }
-          ]
-        },
-        "1234"
-      ),
-      [
-        {
-          "--empId": "1234",
-          "--beverage": "orange",
-          "--qty": 2,
-          "--date": "2019-11-26T05:17:54.298Z"
-        },
-        {
-          "--empId": "1234",
-          "--beverage": "apple",
-          "--qty": 1,
-          "--date": "2019-11-26T08:58:31.280Z"
-        }
-      ]
+      getEmployeeTransactions("1111", {
+        "--empId": "1234",
+        "--beverage": "orange",
+        "--qty": 2,
+        "--date": "2019-11-26T05:17:54.298Z"
+      }),
+      false
     );
   });
-  it("should return all the transactions done by that employee", function() {
+  it("should return true if the the given empId and the empId field of the object matches", function() {
     assert.deepStrictEqual(
-      getEmployeeTransactions(
-        {
-          "1234": [
-            {
-              "--empId": "1234",
-              "--beverage": "orange",
-              "--qty": 2,
-              "--date": "2019-11-26T05:17:54.298Z"
-            },
-            {
-              "--empId": "1234",
-              "--beverage": "apple",
-              "--qty": 1,
-              "--date": "2019-11-26T08:58:31.280Z"
-            }
-          ],
-          "1111": [
-            {
-              "--empId": "1234",
-              "--beverage": "orange",
-              "--qty": 2,
-              "--date": "2019-11-26T08:58:32.247Z"
-            }
-          ],
-          "2222": [
-            {
-              "--empId": "1234",
-              "--beverage": "orange",
-              "--qty": 2,
-              "--date": "2019-11-26T08:58:33.115Z"
-            }
-          ]
-        },
-        "3333"
-      ),
-      []
+      getEmployeeTransactions("1234", {
+        "--empId": "1234",
+        "--beverage": "orange",
+        "--qty": 2,
+        "--date": "2019-11-26T05:17:54.298Z"
+      }),
+      true
     );
   });
 });
@@ -170,7 +99,7 @@ describe("querryMessageFormatter", function() {
 
 describe("query", function() {
   const readFunc = function(path) {
-    return '{"1211": [{"--empId": "1211","--beverage": "orange","--qty": 2,"--date": "2019-11-26T03:12:47.472Z"}]}';
+    return '[{"--empId": "1211","--beverage": "orange","--qty": 2,"--date": "2019-11-26T03:12:47.472Z"}]';
   };
 
   it("should find all the transactions by the employee and return", function() {

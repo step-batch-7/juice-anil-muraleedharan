@@ -96,7 +96,7 @@ describe("getConvertedInput", function() {
 
 describe("processInputs", function() {
   const readFunc = function(path) {
-    return "{}";
+    return "[]";
   };
 
   const writeFunc = function(path) {};
