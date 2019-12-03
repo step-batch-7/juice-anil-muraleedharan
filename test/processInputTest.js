@@ -77,15 +77,21 @@ describe('getConvertedInput', function() {
   it('should return an array by converting the operation to corresponding func references and qty to numeric', function() {
     date = new Date();
     assert.deepStrictEqual(
-      getConvertedInput(
-        ['--save', '--empId', '1111', '--beverage', 'orange', '--qty', '2'],
-      ),
+      getConvertedInput([
+        '--save',
+        '--empId',
+        '1111',
+        '--beverage',
+        'orange',
+        '--qty',
+        '2'
+      ]),
       [
         save,
         {
           '--empId': '1111',
           '--beverage': 'orange',
-          '--qty': '2',
+          '--qty': '2'
         }
       ]
     );

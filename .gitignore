@@ -1,4 +1,2 @@
 node_modules/
 .nyc_output
-./src/inputValidation.js
-./test/inputValidationTest.js
