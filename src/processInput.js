@@ -1,10 +1,8 @@
-const saveFuncs = require("./save");
-const queryFuncs = require("./query");
-
+const saveFuncs = require('./save');
+const queryFuncs = require('./query');
 
 let { save, saveMessageFormatter } = saveFuncs;
 let { query, queryMessageFormatter } = queryFuncs;
-
 
 const getObjectFromArray = function(array) {
   const length = array.length;
@@ -36,36 +34,49 @@ const getSlicedInput = function(array, length) {
   return slicedInput;
 };
 
-const getConvertedInput = function(userArgs, date) {
-  const avilableOperations = { "--save": save, "--query": query };
+const getConvertedInput = function(userArgs) {
+  const avilableOperations = { '--save': save, '--query': query };
   let convertedInputs = [];
   convertedInputs[0] = avilableOperations[userArgs[0]];
   convertedInputs[1] = getObjectFromArray(userArgs.slice(1));
-  convertedInputs[1]["--qty"] = getNumeric(convertedInputs[1]["--qty"]);
-  convertedInputs[1]["--date"] = date;
   return convertedInputs;
 };
 
-const processInputs = function(slicedInputs, date, databasePath, validityFlag,readFile,writeFile) {
+const processInputs = function(slicedInputs, ProcessArgs) {
+  const date = ProcessArgs.date;
+  const databasePath = ProcessArgs.databasePath;
+  const validityFlag = ProcessArgs.validityFlag;
+  const readFunc = ProcessArgs.readFile;
+  const writeFunc = ProcessArgs.writeFile;
+
   if (!validityFlag) {
-    return "please enter valid inputs";
+    return 'please enter valid inputs';
   }
   const messageFormatterOptions = {
-    "--save": saveMessageFormatter,
-    "--query": queryMessageFormatter
+    '--save': saveMessageFormatter,
+    '--query': queryMessageFormatter
   };
-  const convertedInputs = getConvertedInput(slicedInputs, date);
+  const convertedInputs = getConvertedInput(slicedInputs);
   const operation = convertedInputs[0];
   const datasToProcess = convertedInputs[1];
-  const result = operation(datasToProcess, databasePath, readFile, writeFile);
+  const result = operation(
+    { cmndLineOptions: datasToProcess, date: date },
+    databasePath,
+    {
+      readFunc: readFunc,
+      writeFunc: writeFunc
+    }
+  );
   const messageFormatterFunc = messageFormatterOptions[slicedInputs[0]];
   const message = messageFormatterFunc(result);
   return message;
 };
 
-exports.getConvertedInput = getConvertedInput;
-exports.getSlicedInput = getSlicedInput;
-exports.operationAndDetailSeperator = operationAndDetailSeperator;
-exports.getNumeric = getNumeric;
-exports.getObjectFromArray = getObjectFromArray;
-exports.processInputs = processInputs;
+module.exports = {
+  getConvertedInput,
+  getSlicedInput,
+  operationAndDetailSeperator,
+  getNumeric,
+  getObjectFromArray,
+  processInputs
+};

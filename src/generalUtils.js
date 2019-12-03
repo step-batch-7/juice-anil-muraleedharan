@@ -22,10 +22,11 @@ const isNumeric = function(value) {
   return Number.isInteger(Number(value));
 };
 
-
-exports.isIncludes = isIncludes;
-exports.isEqual = isEqual;
-exports.getNumeric = getNumeric;
-exports.isPositiveNumeric = isPositiveNumeric;
-exports.isNumeric = isNumeric;
-exports.isPresent = isPresent;
+module.exports = {
+  isIncludes,
+  isEqual,
+  getNumeric,
+  isPositiveNumeric,
+  isNumeric,
+  isPresent
+};

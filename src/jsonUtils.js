@@ -6,5 +6,4 @@ const stringify = function(obj) {
   return JSON.stringify(obj);
 };
 
-exports.parse = parse;
-exports.stringify = stringify;
+module.exports = { parse, stringify };
